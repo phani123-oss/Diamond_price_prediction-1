@@ -1,13 +1,22 @@
-import os 
-import sys 
+import os
+import sys
 from src.logger import logging
 from src.exception import CustomException
 import pandas as pd
 
 from src.components.data_ingestion import DataIngestion
+#below line after data transformation
+from src.components.data_transformation import DataTransformation
+#after model trainer
+from src.components.model_trainer import ModelTrainer
 
-if __name__ == '__main__':
-    obj = DataIngestion()
-    train_data_path,test_data_path = obj.initiate_data_ingestion()
+if __name__=='__main__':
+    obj=DataIngestion()
+    train_data_path,test_data_path=obj.initiate_data_ingestion()
     print(train_data_path,test_data_path)
-    
+    #for data transformation testing
+    data_transformation =  DataTransformation()
+    train_arr,test_arr,_=data_transformation.initaite_data_transformation(train_data_path,test_data_path)
+    #for model trainer testing
+    model_trainer=ModelTrainer()
+    model_trainer.initate_model_training(train_arr,test_arr)
